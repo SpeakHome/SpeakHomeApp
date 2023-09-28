@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_marginTop="40dp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/speakHomeLogo"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextUserName"
+        android:hint="User Name"
+        android:padding="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:drawableLeft="@drawable/baseline_contact_mail_24"
+        android:drawablePadding="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEmail"
+        android:hint="Email"
+        android:padding="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:drawableLeft="@drawable/baseline_contact_mail_24"
+        android:drawablePadding="15dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextPassword"
+        android:hint="Password"
+        android:padding="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:drawableLeft="@drawable/baseline_lock_24"
+        android:drawablePadding="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextConfirmPassword"
+        android:hint="Confirm Password"
+        android:padding="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:drawableLeft="@drawable/baseline_lock_24"
+        android:drawablePadding="15dp"/>
+
+    <Switch
+        android:id="@+id/switchITechnician"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I'm technician"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:id="@+id/buttonSignUp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="15dp"
+        android:textSize="15dp"/>
+
+</LinearLayout>
