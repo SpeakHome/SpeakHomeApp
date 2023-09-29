@@ -37,17 +37,25 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Your Devices"
+            android:text="Your Latest Devices"
             android:textSize="20dp"/>
         <ImageButton
+            android:id="@+id/buttonAddDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/baseline_insert_photo_24"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:id="@+id/recyclerViewDevices"/>
+    <Button
+        android:id="@+id/buttonViewAllDevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View All"
+        android:textSize="20dp"
+        android:layout_margin="15dp"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -61,13 +69,18 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    android:id="@+id/buttonViewAllFriends"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Friends"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:autoLink="all"/>
+
                 <ImageButton
+                    android:id="@+id/buttonAddFriend"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/baseline_insert_photo_24"/>
@@ -88,12 +101,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/buttonViewAllTechnicians"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="technicians"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:autoLink="all"/>
                 <ImageButton
+                    android:id="@+id/buttonAddTechnician"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/baseline_insert_photo_24"/>
