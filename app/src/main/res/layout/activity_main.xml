@@ -32,7 +32,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/text_box"
+        android:background="@drawable/black_border"
         android:drawableLeft="@drawable/baseline_contact_mail_24"
         android:drawablePadding="16dp"/>
 
@@ -45,7 +45,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/text_box"
+        android:background="@drawable/black_border"
         android:drawableLeft="@drawable/baseline_lock_24"
         android:drawablePadding="16dp"/>
     <CheckBox

@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity3">
+    tools:context=".MainActivity3"
+    android:layout_margin="20dp">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -45,10 +46,12 @@
             android:layout_height="match_parent"
             android:src="@drawable/baseline_insert_photo_24"/>
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDevices"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:id="@+id/recyclerViewDevices"/>
+        android:layout_height="350dp" />
+
     <Button
         android:id="@+id/buttonViewAllDevices"
         android:layout_width="match_parent"
