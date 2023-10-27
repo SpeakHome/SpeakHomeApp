@@ -1,9 +1,6 @@
 package Models.Role
 
-class RoleResource {
-    constructor(name: String) {
-        this.name = name
-    }
-
+data class RoleResource (
+    var id:Long,
     var name: String
-}
+)
