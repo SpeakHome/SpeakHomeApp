@@ -1,10 +1,10 @@
-package com.example.speakhomeapp
+package com.example.speakhomeapp.RecyclerViews
 
-import Models.Device.DeviceResource
 import Models.PofileDevice.ProfileDeviceResource
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.speakhomeapp.R
 
 class DeviceAdapter(val deviceList: List<ProfileDeviceResource>) : RecyclerView.Adapter<DeviceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceViewHolder {

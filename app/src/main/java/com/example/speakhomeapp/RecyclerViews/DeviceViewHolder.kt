@@ -1,10 +1,11 @@
-package com.example.speakhomeapp
+package com.example.speakhomeapp.RecyclerViews
 
 import Models.PofileDevice.ProfileDeviceResource
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.speakhomeapp.R
 import com.squareup.picasso.Picasso
 
 class DeviceViewHolder(view: View) : RecyclerView.ViewHolder(view) {

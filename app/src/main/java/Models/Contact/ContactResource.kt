@@ -1,6 +1,6 @@
-package Models.Chat
+package Models.Contact
 
-data class ChatResource(
+data class ContactResource(
     var id: Long,
     var profile1Id: Long,
     var profile2Id: Long,
