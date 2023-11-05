@@ -2,6 +2,7 @@ package com.example.speakhomeapp
 
 import Models.ApiResponse
 import Models.Contact.ContactResource
+import Models.Device.DeviceResource
 import Models.PofileDevice.ProfileDeviceResource
 import Models.Profile.ProfileResource
 import Services.ContactService
@@ -48,27 +49,25 @@ class HomeActivity : AppCompatActivity() {
         contactService = retrofit.create<ContactService>(ContactService::class.java)
         profileService = retrofit.create<ProfileService>(ProfileService::class.java)
         getDevices()
-        setupRecyclerView()
+        getContacts()
     }
     private fun getDevices() {
         val userProfileId = (application as MyApplication).profile?.id
         if (userProfileId != null) {
-            profileDeviceService.getAll().enqueue(object : Callback<ApiResponse<List<ProfileDeviceResource>>> {
-                override fun onResponse(call: Call<ApiResponse<List<ProfileDeviceResource>>>, response: Response<ApiResponse<List<ProfileDeviceResource>>>) {
+            profileDeviceService.getDevicesByProfileId(userProfileId).enqueue(object : Callback<ApiResponse<List<DeviceResource>>> {
+                override fun onResponse(call: Call<ApiResponse<List<DeviceResource>>>, response: Response<ApiResponse<List<DeviceResource>>>) {
                     if (response.isSuccessful) {
-                        val allDevices = response.body()?.content ?: emptyList()
-                        // Filtrar los dispositivos que pertenecen al perfil logueado
-                        val filteredDevices = allDevices.filter { it.profileId == userProfileId }
+                        val devices = response.body()?.content ?: emptyList()
 
                         val recycler = findViewById<RecyclerView>(R.id.recyclerViewDevices)
                         recycler.layoutManager = LinearLayoutManager(applicationContext)
-                        recycler.adapter = DeviceAdapter(filteredDevices)
+                        recycler.adapter = DeviceAdapter(devices)
                     } else {
                         Toast.makeText(this@HomeActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<ApiResponse<List<ProfileDeviceResource>>>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse<List<DeviceResource>>>, t: Throwable) {
                     Toast.makeText(this@HomeActivity, "Fallo: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -76,61 +75,62 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this@HomeActivity, "No se encontró el ID del perfil.", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun setupRecyclerView() {
+    private fun getContacts() {
         val userProfileId = (application as MyApplication).profile?.id
 
-        if (userProfileId != null) {
-            contactService.getAll().enqueue(object : Callback<ApiResponse<List<ContactResource>>> {
+        userProfileId?.let { profileId ->
+            // Obtener contactos que son técnicos
+
+            contactService.getTechnicianContactsByProfileId(profileId.toInt()).enqueue(object : Callback<ApiResponse<List<ContactResource>>> {
                 override fun onResponse(call: Call<ApiResponse<List<ContactResource>>>, response: Response<ApiResponse<List<ContactResource>>>) {
                     if (response.isSuccessful) {
-                        val contacts = response.body()?.content ?: emptyList()
-                        val relatedProfileIds = contacts.filter {
-                            it.profile1Id == userProfileId || it.profile2Id == userProfileId
-                        }.map {
-                            if (it.profile1Id == userProfileId) it.profile2Id else it.profile1Id
-                        }.distinct()
-
-                        profileService.getAll().enqueue(object : Callback<ApiResponse<List<ProfileResource>>> {
-                            override fun onResponse(call: Call<ApiResponse<List<ProfileResource>>>, response: Response<ApiResponse<List<ProfileResource>>>) {
-                                val profiles = response.body()?.content ?: emptyList()
-
-                                val friendsProfiles = profiles.filter { profile ->
-                                    relatedProfileIds.contains(profile.id) && profile.role.name != "tecnico"
-                                }
-
-                                val technicianProfiles = profiles.filter { profile ->
-                                    relatedProfileIds.contains(profile.id) && profile.role.name == "tecnico"
-                                }
-
-                                val recyclerViewFriends: RecyclerView = findViewById(R.id.recyclerViewFriends)
-                                recyclerViewFriends.layoutManager = LinearLayoutManager(this@HomeActivity)
-                                recyclerViewFriends.adapter = ProfileAdapter(friendsProfiles)
-
-                                val recyclerViewTechnicians: RecyclerView = findViewById(R.id.recyclerViewSupports)
-                                recyclerViewTechnicians.layoutManager = LinearLayoutManager(this@HomeActivity)
-                                recyclerViewTechnicians.adapter = ProfileAdapter(technicianProfiles)
-                            }
-
-                            override fun onFailure(call: Call<ApiResponse<List<ProfileResource>>>, t: Throwable) {
-                            // Handle error
-                                Log.e("NETWORK_ERROR", "Network error: ${t.message}", t)
-                            }
-                        })
+                        // Aquí manejamos la respuesta para técnicos
+                        val technicianContacts = response.body()?.content ?: emptyList()
+                        updateTechniciansRecyclerView(technicianContacts)
                     } else {
-                        // Handle error
-                        Log.e("API_ERROR", "Failed to fetch contacts: ${response.errorBody()?.string()}")
+                        Toast.makeText(this@HomeActivity, "Error técnicos: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<ApiResponse<List<ContactResource>>>, t: Throwable) {
-                // Handle error
-                    Log.e("NETWORK_ERROR", "Network error: ${t.message}", t)
+                    Toast.makeText(this@HomeActivity, "Fallo técnicos: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
-        } else {
-            // Show error message
+
+            // Obtener contactos que no son técnicos
+            contactService.getNonTechnicianContactsByProfileId(profileId.toInt()).enqueue(object : Callback<ApiResponse<List<ContactResource>>> {
+                override fun onResponse(call: Call<ApiResponse<List<ContactResource>>>, response: Response<ApiResponse<List<ContactResource>>>) {
+                    if (response.isSuccessful) {
+                        // Aquí manejamos la respuesta para no técnicos
+                        val nonTechnicianContacts = response.body()?.content ?: emptyList()
+                        updateNonTechniciansRecyclerView(nonTechnicianContacts)
+                    } else {
+                        Toast.makeText(this@HomeActivity, "Error no técnicos: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                override fun onFailure(call: Call<ApiResponse<List<ContactResource>>>, t: Throwable) {
+                    Toast.makeText(this@HomeActivity, "Fallo no técnicos: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } ?: run {
             Toast.makeText(this@HomeActivity, "No se encontró el ID del perfil.", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun updateTechniciansRecyclerView(technicians: List<ContactResource>) {
+        // Suponiendo que cada ContactResource contiene un ProfileResource, necesitas extraer los ProfileResource
+        val technicianProfiles = technicians.map { it.contactProfile } // Reemplaza 'profileResource' con el nombre real de tu propiedad.
+
+        val recyclerViewTechnicians: RecyclerView = findViewById(R.id.recyclerViewSupports)
+        recyclerViewTechnicians.layoutManager = LinearLayoutManager(this@HomeActivity)
+        recyclerViewTechnicians.adapter = ProfileAdapter(technicianProfiles)
+    }
+
+    private fun updateNonTechniciansRecyclerView(nonTechnicians: List<ContactResource>) {
+        // Igual que con los técnicos, extraemos los ProfileResource de los ContactResource
+        val nonTechnicianProfiles = nonTechnicians.map { it.contactProfile } // Reemplaza 'profileResource' con el nombre real de tu propiedad.
+
+        val recyclerViewFriends: RecyclerView = findViewById(R.id.recyclerViewFriends)
+        recyclerViewFriends.layoutManager = LinearLayoutManager(this@HomeActivity)
+        recyclerViewFriends.adapter = ProfileAdapter(nonTechnicianProfiles)
+    }
 }

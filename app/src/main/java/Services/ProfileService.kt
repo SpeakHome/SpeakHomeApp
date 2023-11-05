@@ -3,6 +3,7 @@ package Services
 import Models.ApiResponse
 import Models.Profile.CreateProfile
 import Models.Profile.ProfileResource
+import Models.Requests.LoginRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,4 +20,8 @@ interface ProfileService {
 
     @POST("security/profiles")
     fun create(@Body newObject: CreateProfile): Call<ProfileResource>
+
+    @POST("security/profiles/login")
+    fun login(@Body request: LoginRequest): Call<ProfileResource>
+
 }

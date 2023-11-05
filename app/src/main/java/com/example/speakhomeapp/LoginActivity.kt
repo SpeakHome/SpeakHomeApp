@@ -2,6 +2,7 @@ package com.example.speakhomeapp
 
 import Models.ApiResponse
 import Models.Profile.ProfileResource
+import Models.Requests.LoginRequest
 import Services.ProfileService
 import android.content.Context
 import android.content.Intent
@@ -56,52 +57,51 @@ class LoginActivity : AppCompatActivity() {
 
         // Listener para el botón de inicio de sesión
         buttonSignIn.setOnClickListener {
-            profileService.getAll().enqueue(object : Callback<ApiResponse<List<ProfileResource>>> {
-                override fun onResponse(call: Call<ApiResponse<List<ProfileResource>>>, response: Response<ApiResponse<List<ProfileResource>>>) {
+            val email = editTextEmail.text.toString()
+            val password = editTextPassword.text.toString()
+            val loginRequest = LoginRequest(email, password)
+
+            profileService.login(loginRequest).enqueue(object : Callback<ProfileResource> {
+                override fun onResponse(call: Call<ProfileResource>, response: Response<ProfileResource>) {
                     if (response.isSuccessful) {
-                        val users: List<ProfileResource>? = response.body()?.content
-                        for (user in users ?: emptyList()) {
-                            if (user.email == editTextEmail.text.toString() && user.password == editTextPassword.text.toString()) {
-                                // Login exitoso
-                                Toast.makeText(this@LoginActivity, "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show()
+                        val userProfile = response.body()
 
-                                // Guardar las credenciales si el checkBox está marcado
-                                with(preferences.edit()) {
-                                    if (checkBoxRemember.isChecked) {
-                                        putString("email", editTextEmail.text.toString())
-                                        putString("password", editTextPassword.text.toString())
-                                        putBoolean("remember", true)
-                                    } else {
-                                        remove("email")
-                                        remove("password")
-                                        putBoolean("remember", false)
-                                    }
-                                    apply()
+                        userProfile?.let {
+                            // Login exitoso
+                            Toast.makeText(this@LoginActivity, "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT).show()
+
+                            // Guardar las credenciales si el checkBox está marcado
+                            with(preferences.edit()) {
+                                if (checkBoxRemember.isChecked) {
+                                    putString("email", email)
+                                    putString("password", password)
+                                    putBoolean("remember", true)
+                                } else {
+                                    remove("email")
+                                    remove("password")
+                                    putBoolean("remember", false)
                                 }
-                                // Guarda la información del perfil y establece isAuthenticated en true
-                                app.profile = user
-                                app.isAuthenticated = true
-
-                                // Navegar a HomeActivity
-                                val homeIntent = Intent(this@LoginActivity, HomeActivity::class.java)
-                                startActivity(homeIntent)
-
-                                // Finalizar LoginActivity
-                                finish()
-
-                                return
+                                apply()
                             }
+
+                            // Guarda la información del perfil y establece isAuthenticated en true
+                            app.profile = it
+                            app.isAuthenticated = true
+
+                            // Navegar a HomeActivity
+                            val homeIntent = Intent(this@LoginActivity, HomeActivity::class.java)
+                            startActivity(homeIntent)
+                            finish()
+                        } ?: run {
+                            Toast.makeText(this@LoginActivity, "Perfil no encontrado", Toast.LENGTH_SHORT).show()
                         }
-                        // Si llegamos aquí, ningún usuario coincide con el correo y la contraseña ingresados
-                        Toast.makeText(this@LoginActivity, "Correo o contraseña inválidos", Toast.LENGTH_SHORT).show()
+
                     } else {
-                        // Manejar respuesta de error
                         Toast.makeText(this@LoginActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<ApiResponse<List<ProfileResource>>>, t: Throwable) {
-                    // Manejar fallo
+                override fun onFailure(call: Call<ProfileResource>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "Fallo: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
