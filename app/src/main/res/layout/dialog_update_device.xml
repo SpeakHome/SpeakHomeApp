@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/dialog_update_device.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextDeviceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="textCapWords"
+        android:maxLines="1"/>
+
+    <EditText
+        android:id="@+id/editTextBaseUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Base URL"
+        android:inputType="textUri"
+        android:maxLines="1"/>
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:maxLines="3"/>
+
+    <EditText
+        android:id="@+id/editTextPictureUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Picture URL"
+        android:inputType="textUri"
+        android:maxLines="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+        <Button
+            android:id="@+id/buttonEditDevice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit Device"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textSize="20dp"/>
+    </LinearLayout>
+</LinearLayout>

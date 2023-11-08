@@ -1,6 +1,6 @@
 package Models.Profile
 
-data class CreateProfile (
+data class CreateProfileResource (
     var userName: String,
     var email: String,
     var password: String,

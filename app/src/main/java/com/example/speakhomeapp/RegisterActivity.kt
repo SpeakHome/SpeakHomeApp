@@ -1,6 +1,6 @@
 package com.example.speakhomeapp
 
-import Models.Profile.CreateProfile
+import Models.Profile.CreateProfileResource
 import Models.Profile.ProfileResource
 import Services.ProfileService
 import android.content.Intent
@@ -37,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
 
         buttonSignUp.setOnClickListener {
 
-            val user = CreateProfile(
+            val user = CreateProfileResource(
                 userName = editTextUserName.text.toString(),
                 email = editTextEmail.text.toString(),
                 password = editTextPassword.text.toString(),

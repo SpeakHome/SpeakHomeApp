@@ -1,7 +1,7 @@
 package Services
 
 import Models.ApiResponse
-import Models.Profile.CreateProfile
+import Models.Profile.CreateProfileResource
 import Models.Profile.ProfileResource
 import Models.Requests.LoginRequest
 import retrofit2.Call
@@ -19,7 +19,7 @@ interface ProfileService {
     fun getById(@Path("id") id: Int): Call<ProfileResource>
 
     @POST("security/profiles")
-    fun create(@Body newObject: CreateProfile): Call<ProfileResource>
+    fun create(@Body newObject: CreateProfileResource): Call<ProfileResource>
 
     @POST("security/profiles/login")
     fun login(@Body request: LoginRequest): Call<ProfileResource>

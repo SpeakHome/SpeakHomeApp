@@ -50,28 +50,54 @@
                 android:layout_height="wrap_content"
                 android:text="Description:"/>
             <TextView
+                android:id="@+id/textViewDeviceDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Device description provided by the User"/>
         </LinearLayout>
         <ImageView
+            android:id="@+id/imageViewDevicePicture"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/baseline_insert_photo_24"
             android:layout_weight="1"
             android:layout_gravity="end"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="deviceStatus"
-        android:background="@drawable/green_border"
-        android:textColor="@color/white"
-        android:paddingVertical="2dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:layout_gravity="end"
-        android:layout_margin="10dp"/>
+        android:orientation="horizontal"
+        android:layout_marginVertical="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:text="BaseUrl: "/>
+            <TextView
+                android:id="@+id/textViewDeviceBaseUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/textViewDeviceStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="deviceStatus"
+            android:background="@drawable/green_border"
+            android:textColor="@color/white"
+            android:paddingVertical="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="15dp"/>
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -98,12 +124,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/buttonEditDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Modify"
             android:layout_weight="1"
             android:layout_marginEnd="10dp"/>
         <Button
+            android:id="@+id/buttonDeleteDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Delete"

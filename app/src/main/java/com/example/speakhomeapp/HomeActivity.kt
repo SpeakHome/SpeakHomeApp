@@ -2,19 +2,27 @@ package com.example.speakhomeapp
 
 import Models.ApiResponse
 import Models.Contact.ContactResource
+import Models.Device.CreateDeviceResource
 import Models.Device.DeviceResource
+import Models.Location.LocationResource
+import Models.PofileDevice.CreateProfileDeviceResource
 import Models.PofileDevice.ProfileDeviceResource
 import Models.Profile.ProfileResource
 import Services.ContactService
+import Services.DeviceService
+import Services.LocationService
 import Services.ProfileDeviceService
 import Services.ProfileService
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.speakhomeapp.Dialogs.CreateDeviceDialogFragment
 import com.example.speakhomeapp.RecyclerViews.DeviceAdapter
 import com.example.speakhomeapp.RecyclerViews.ProfileAdapter
 import retrofit2.Call
@@ -27,6 +35,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var profileDeviceService: ProfileDeviceService
     lateinit var contactService: ContactService
     lateinit var profileService: ProfileService
+    lateinit var locationService: LocationService
+    lateinit var deviceService: DeviceService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_view)
@@ -48,12 +58,21 @@ class HomeActivity : AppCompatActivity() {
         profileDeviceService = retrofit.create<ProfileDeviceService>(ProfileDeviceService::class.java)
         contactService = retrofit.create<ContactService>(ContactService::class.java)
         profileService = retrofit.create<ProfileService>(ProfileService::class.java)
+        locationService = retrofit.create<LocationService>(LocationService::class.java)
+        deviceService = retrofit.create<DeviceService>(DeviceService::class.java)
+
         getDevices()
         getContacts()
+
+        val buttonCreateDevice = findViewById<ImageButton>(R.id.buttonAddDevice)
+        buttonCreateDevice.setOnClickListener {
+            showCreateDeviceDialog()
+        }
     }
     private fun getDevices() {
         val userProfileId = (application as MyApplication).profile?.id
-        if (userProfileId != null) {
+        val isAuthenticated = (application as MyApplication).isAuthenticated
+        if (userProfileId != null && isAuthenticated) {
             profileDeviceService.getDevicesByProfileId(userProfileId).enqueue(object : Callback<ApiResponse<List<DeviceResource>>> {
                 override fun onResponse(call: Call<ApiResponse<List<DeviceResource>>>, response: Response<ApiResponse<List<DeviceResource>>>) {
                     if (response.isSuccessful) {
@@ -61,7 +80,7 @@ class HomeActivity : AppCompatActivity() {
 
                         val recycler = findViewById<RecyclerView>(R.id.recyclerViewDevices)
                         recycler.layoutManager = LinearLayoutManager(applicationContext)
-                        recycler.adapter = DeviceAdapter(devices)
+                        recycler.adapter = DeviceAdapter(devices, this@HomeActivity)
                     } else {
                         Toast.makeText(this@HomeActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
@@ -132,5 +151,70 @@ class HomeActivity : AppCompatActivity() {
         val recyclerViewFriends: RecyclerView = findViewById(R.id.recyclerViewFriends)
         recyclerViewFriends.layoutManager = LinearLayoutManager(this@HomeActivity)
         recyclerViewFriends.adapter = ProfileAdapter(nonTechnicianProfiles)
+    }
+
+    private fun showCreateDeviceDialog() {
+        // Obtener las ubicaciones. Este paso puede ser una llamada de red, en cuyo caso puede necesitar ser asíncrono.
+        locationService.getAll().enqueue(object : Callback<ApiResponse<List<LocationResource>>> {
+            override fun onResponse(call: Call<ApiResponse<List<LocationResource>>>, response: Response<ApiResponse<List<LocationResource>>>) {
+                if (response.isSuccessful) {
+                    val locations = response.body() ?.content ?: emptyList()
+                    val dialogFragment = CreateDeviceDialogFragment(locations){createDevice ->
+                        onDeviceCreated(createDevice)
+                    }
+                    dialogFragment.show(supportFragmentManager, "CreateDeviceDialogFragment")
+                } else {
+                    Toast.makeText(this@HomeActivity, "Error al obtener ubicaciones: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<List<LocationResource>>>, t: Throwable) {
+                Toast.makeText(this@HomeActivity, "Fallo al obtener ubicaciones: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun onDeviceCreated(createDevice: CreateDeviceResource) {
+        // Primero, crear el dispositivo
+        deviceService.create(createDevice).enqueue(object : Callback<DeviceResource> {
+            override fun onResponse(call: Call<DeviceResource>, response: Response<DeviceResource>) {
+                if (response.isSuccessful) {
+                    // Si se creó el dispositivo, proceder a crear el ProfileDevice
+                    val device = response.body()!!
+                    createProfileDevice(device.id)
+                } else {
+                    Toast.makeText(this@HomeActivity, "Error al crear el dispositivo: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<DeviceResource>, t: Throwable) {
+                Toast.makeText(this@HomeActivity, "Fallo al crear el dispositivo: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun createProfileDevice(deviceId: Long) {
+        // Aquí suponemos que ya tienes el ID del perfil (profileId)
+        val profileId = (application as MyApplication).profile?.id!!
+
+        val createProfileDeviceResource = CreateProfileDeviceResource(
+            profileId = profileId,
+            deviceId = deviceId
+        )
+
+        profileDeviceService.create(createProfileDeviceResource).enqueue(object : Callback<ProfileDeviceResource> {
+            override fun onResponse(call: Call<ProfileDeviceResource>, response: Response<ProfileDeviceResource>) {
+                if (response.isSuccessful) {
+                    getDevices()
+                    Toast.makeText(this@HomeActivity, "Dispositivo asociado al perfil correctamente.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@HomeActivity, "Error al asociar el dispositivo: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileDeviceResource>, t: Throwable) {
+                Toast.makeText(this@HomeActivity, "Fallo al asociar el dispositivo: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

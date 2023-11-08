@@ -2,8 +2,7 @@ package Models.Location
 
 import Models.Device.DeviceResource
 
-class LocationResource(
+data class LocationResource(
     var id: Long,
-    var name: String,
-    var description: String,
+    var name: String
 )

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dialog_create_device.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <EditText
+        android:id="@+id/editTextDeviceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="device name"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/editTextBaseUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="base url"
+        android:inputType="textUri"/>
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="description"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/editTextPictureUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="picture url"
+        android:inputType="textUri"/>
+
+    <Spinner
+        android:id="@+id/spinnerLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- El spinner para deviceStatusId no se ha incluido, asumiendo que se gestiona de otra manera. -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+        <Button
+            android:id="@+id/buttonCreateDevice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Create Device"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+</LinearLayout>

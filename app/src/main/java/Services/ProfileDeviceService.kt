@@ -2,9 +2,8 @@ package Services
 
 import Models.ApiResponse
 import Models.Device.DeviceResource
+import Models.PofileDevice.CreateProfileDeviceResource
 import Models.PofileDevice.ProfileDeviceResource
-import Models.Profile.CreateProfile
-import Models.Profile.ProfileResource
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -21,6 +20,6 @@ interface ProfileDeviceService {
     @GET("device-iot/profile-devices/by-profile/{profileId}")
     fun getDevicesByProfileId(@Path("profileId") profileId: Long): Call<ApiResponse<List<DeviceResource>>>
 
-    //@POST("device-iot/profile-devices")
-    //fun create(@Body newObject: CreateProfileDevice): Call<ProfileDeviceResource>
+    @POST("device-iot/profile-devices")
+    fun create(@Body newObject: CreateProfileDeviceResource): Call<ProfileDeviceResource>
 }
