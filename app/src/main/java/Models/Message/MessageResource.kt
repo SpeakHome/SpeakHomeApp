@@ -7,5 +7,4 @@ data class MessageResource(
     var id: Long,
     var content: String,
     var createdAt: Date,
-    var chat: ContactResource
 )

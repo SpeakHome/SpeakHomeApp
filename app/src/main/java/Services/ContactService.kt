@@ -21,6 +21,9 @@ interface ContactService {
     @GET("media-outlet/contacts/{id}")
     fun getById(@Path("id") id: Int): Call<ContactResource>
 
+    @GET("media-outlet/contacts/by-profile/{profileId}/by-contact/{contactProfileId}")
+    fun getByProfileIdAndContactProfileId(@Path("profileId") profileId: Int, @Path("contactProfileId") contactProfileId: Int): Call<ContactResource>
+
     //@POST("media-outlet/contacts")
     //fun create(@Body newObject: CreateContact): Call<ContactResource>
 }

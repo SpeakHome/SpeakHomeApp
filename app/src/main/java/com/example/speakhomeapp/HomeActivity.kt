@@ -140,8 +140,8 @@ class HomeActivity : AppCompatActivity() {
         val technicianProfiles = technicians.map { it.contactProfile } // Reemplaza 'profileResource' con el nombre real de tu propiedad.
 
         val recyclerViewTechnicians: RecyclerView = findViewById(R.id.recyclerViewSupports)
-        recyclerViewTechnicians.layoutManager = LinearLayoutManager(this@HomeActivity)
-        recyclerViewTechnicians.adapter = ProfileAdapter(technicianProfiles)
+        recyclerViewTechnicians.layoutManager = LinearLayoutManager(applicationContext)
+        recyclerViewTechnicians.adapter = ProfileAdapter(technicianProfiles, this@HomeActivity)
     }
 
     private fun updateNonTechniciansRecyclerView(nonTechnicians: List<ContactResource>) {
@@ -149,8 +149,8 @@ class HomeActivity : AppCompatActivity() {
         val nonTechnicianProfiles = nonTechnicians.map { it.contactProfile } // Reemplaza 'profileResource' con el nombre real de tu propiedad.
 
         val recyclerViewFriends: RecyclerView = findViewById(R.id.recyclerViewFriends)
-        recyclerViewFriends.layoutManager = LinearLayoutManager(this@HomeActivity)
-        recyclerViewFriends.adapter = ProfileAdapter(nonTechnicianProfiles)
+        recyclerViewFriends.layoutManager = LinearLayoutManager(applicationContext)
+        recyclerViewFriends.adapter = ProfileAdapter(nonTechnicianProfiles, this@HomeActivity)
     }
 
     private fun showCreateDeviceDialog() {

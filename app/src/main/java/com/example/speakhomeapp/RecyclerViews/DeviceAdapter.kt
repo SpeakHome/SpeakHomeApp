@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.speakhomeapp.DeviceActivity
 import com.example.speakhomeapp.R
 
-class DeviceAdapter(val deviceList: List<DeviceResource>, val context: Context) : RecyclerView.Adapter<DeviceViewHolder>() {
+class DeviceAdapter(private val deviceList: List<DeviceResource>, val context: Context) : RecyclerView.Adapter<DeviceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return DeviceViewHolder(layoutInflater.inflate(R.layout.device_card,parent,false))
