@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- device_card.xml -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewDeviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Device Name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewDeviceLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Device Location" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewDeviceDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Device Location" />
+        </LinearLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewDevicePicture"
+            android:layout_width="164dp"
+            android:layout_height="133dp"
+
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+

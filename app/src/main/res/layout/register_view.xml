@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical"
+    android:layout_margin="20dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/speak_home_logo">
+
+    </com.google.android.material.imageview.ShapeableImageView>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInputUserName"
+        android:layout_marginTop="20dp"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextUserName"
+            android:hint="User Name"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/baseline_contact_mail_24"
+            android:drawablePadding="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInputEmail"
+        android:layout_marginTop="20dp"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextEmail"
+            android:hint="Email"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/baseline_contact_mail_24"
+            android:drawablePadding="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInputPassword"
+        android:layout_marginTop="20dp"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextPassword"
+            android:hint="Password"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInputConfirmPassword"
+        android:layout_marginTop="20dp"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextConfirmPassword"
+            android:hint="Confirm Password"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchTechnician"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I'm technician"
+        android:layout_marginTop="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:padding="0dp"
+        android:text="Sign Up"
+        android:textSize="20sp"
+        app:strokeColor="#8F3B3B" />
+
+</LinearLayout>
