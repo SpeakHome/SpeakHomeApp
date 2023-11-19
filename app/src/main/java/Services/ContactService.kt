@@ -2,9 +2,12 @@ package Services
 
 import Models.ApiResponse
 import Models.Contact.ContactResource
+import Models.Contact.CreateContactResource
 import Models.PofileDevice.ProfileDeviceResource
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ContactService {
@@ -24,6 +27,6 @@ interface ContactService {
     @GET("media-outlet/contacts/by-profile/{profileId}/by-contact/{contactProfileId}")
     fun getByProfileIdAndContactProfileId(@Path("profileId") profileId: Int, @Path("contactProfileId") contactProfileId: Int): Call<ContactResource>
 
-    //@POST("media-outlet/contacts")
-    //fun create(@Body newObject: CreateContact): Call<ContactResource>
+    @POST("media-outlet/contacts")
+    fun create(@Body newObject: CreateContactResource): Call<ContactResource>
 }

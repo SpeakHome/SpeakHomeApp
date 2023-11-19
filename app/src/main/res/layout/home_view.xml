@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
+    android:orientation="vertical"
     android:layout_margin="20dp">
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center">
-        <TextView
+
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="30dp"
-            android:text="Hello! "/>
-        <TextView
+            android:textSize="30sp"
+            android:text="Hello! " />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="30dp"
-            android:text="userName"/>
-        <ImageView
+            android:textSize="30sp"
+            android:text="userName" />
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewUserPhoto"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_insert_photo_24"/>
+            android:src="@drawable/baseline_insert_photo_24"
+            >
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
     </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Your Latest Devices"
-            android:textSize="20dp"/>
-        <ImageButton
+            android:textSize="20sp" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAddDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_insert_photo_24"/>
+            android:src="@drawable/baseline_insert_photo_24"
+            android:text="Add Device"
+            app:backgroundTint="#1B89DA"
+            app:iconGravity="textStart"
+            style="@style/Widget.MaterialComponents.Button.Icon" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -52,77 +66,62 @@
         android:layout_width="match_parent"
         android:layout_height="350dp" />
 
-    <Button
-        android:id="@+id/buttonViewAllDevices"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View All"
-        android:textSize="20dp"
-        android:layout_margin="15dp"/>
+        android:text="Add Contact"
+        android:textSize="20sp"
+        android:layout_margin="15dp"
+        app:backgroundTint="#1B89DA" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            <LinearLayout
-                android:orientation="horizontal"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/buttonViewAllFriends"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/buttonViewAllFriends"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Friends"
-                    android:textSize="20dp"
-                    android:autoLink="all"/>
-
-                <ImageButton
-                    android:id="@+id/buttonAddFriend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/baseline_insert_photo_24"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="Friends"
+                android:textSize="20sp"
+                android:autoLink="all" />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/recyclerViewFriends"/>
+                android:id="@+id/recyclerViewFriends" />
+
         </LinearLayout>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            <LinearLayout
-                android:orientation="horizontal"
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/buttonViewAllTechnicians"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/buttonViewAllTechnicians"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="technicians"
-                    android:textSize="20dp"
-                    android:autoLink="all"/>
-                <ImageButton
-                    android:id="@+id/buttonAddTechnician"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/baseline_insert_photo_24"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="Technicians"
+                android:textSize="20sp"
+                android:autoLink="all" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/recyclerViewSupports"/>
+                android:id="@+id/recyclerViewSupports" />
+
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>

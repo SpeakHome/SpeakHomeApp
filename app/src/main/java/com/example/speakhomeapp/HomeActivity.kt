@@ -2,6 +2,7 @@ package com.example.speakhomeapp
 
 import Models.ApiResponse
 import Models.Contact.ContactResource
+import Models.Contact.CreateContactResource
 import Models.Device.CreateDeviceResource
 import Models.Device.DeviceResource
 import Models.Location.LocationResource
@@ -22,6 +23,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.speakhomeapp.Dialogs.CreateContactDialogFragment
 import com.example.speakhomeapp.Dialogs.CreateDeviceDialogFragment
 import com.example.speakhomeapp.RecyclerViews.DeviceAdapter
 import com.example.speakhomeapp.RecyclerViews.ProfileAdapter
@@ -52,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
         textViewUserName.text = userProfile?.userName
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.47:8080/api/v1/")
+            .baseUrl("https://speakhomebackend-production.up.railway.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         profileDeviceService = retrofit.create<ProfileDeviceService>(ProfileDeviceService::class.java)
@@ -64,9 +66,13 @@ class HomeActivity : AppCompatActivity() {
         getDevices()
         getContacts()
 
-        val buttonCreateDevice = findViewById<ImageButton>(R.id.buttonAddDevice)
+        val buttonCreateDevice = findViewById<Button>(R.id.buttonAddDevice)
         buttonCreateDevice.setOnClickListener {
             showCreateDeviceDialog()
+        }
+        val buttonAddContact = findViewById<Button>(R.id.buttonAddContact)
+        buttonAddContact.setOnClickListener {
+            showCreateContactDialog()
         }
     }
     private fun getDevices() {
@@ -217,4 +223,56 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun showCreateContactDialog() {
+        val dialogFragment = CreateContactDialogFragment { userName ->
+            getProfileByUserName(userName)
+        }
+        dialogFragment.show(supportFragmentManager, "CreateContactDialogFragment")
+
+    }
+    private fun getProfileByUserName(userName: String) {
+        profileService.getByUserName(userName).enqueue(object : Callback<ProfileResource> {
+            override fun onResponse(call: Call<ProfileResource>, response: Response<ProfileResource>) {
+                if (response.isSuccessful) {
+                    val userProfile = response.body()!!
+                    // Aquí puedes manejar el perfil obtenido
+                    createContact(userProfile.id)
+                } else {
+                    Toast.makeText(this@HomeActivity, "Perfil no encontrado: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileResource>, t: Throwable) {
+                Toast.makeText(this@HomeActivity, "Error en la consulta: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    private fun createContact(contacProfileId: Long) {
+        // Aquí suponemos que ya tienes el ID del perfil (profileId)
+        val profileId = (application as MyApplication).profile?.id!!
+
+        val createContactResource = CreateContactResource(
+            profileId = profileId,
+            contactProfileId = contacProfileId,
+            devicePermission = false
+        )
+
+        contactService.create(createContactResource).enqueue(object : Callback<ContactResource> {
+            override fun onResponse(call: Call<ContactResource>, response: Response<ContactResource>) {
+                if (response.isSuccessful) {
+                    getContacts()
+                    Toast.makeText(this@HomeActivity, "Dispositivo asociado al perfil correctamente.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@HomeActivity, "Error al asociar el dispositivo: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ContactResource>, t: Throwable) {
+                Toast.makeText(this@HomeActivity, "Fallo al asociar el dispositivo: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 }

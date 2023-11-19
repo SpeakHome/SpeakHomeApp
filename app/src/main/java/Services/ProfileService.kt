@@ -18,6 +18,9 @@ interface ProfileService {
     @GET("security/profiles/{id}")
     fun getById(@Path("id") id: Int): Call<ProfileResource>
 
+    @GET("security/profiles/by-userName/{userName}")
+    fun getByUserName(@Path("userName") userName: String): Call<ProfileResource>
+
     @POST("security/profiles")
     fun create(@Body newObject: CreateProfileResource): Call<ProfileResource>
 

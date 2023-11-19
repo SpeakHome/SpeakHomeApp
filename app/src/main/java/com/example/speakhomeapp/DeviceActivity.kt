@@ -52,7 +52,7 @@ class DeviceActivity : AppCompatActivity() {
         textViewUserName.text = userProfile?.userName
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.47:8080/api/v1/")
+            .baseUrl("https://speakhomebackend-production.up.railway.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         deviceService = retrofit.create<DeviceService>(DeviceService::class.java)

@@ -8,54 +8,65 @@
     android:layout_height="match_parent"
     tools:context=".DeviceActivity"
     android:layout_margin="20dp">
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="30dp"
             android:text="Hello! "/>
+
         <TextView
             android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="30dp"
             android:text="userName"/>
-        <ImageView
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewUserPhoto"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_insert_photo_24"/>
+            android:src="@drawable/baseline_insert_photo_24"
+            />
     </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            <TextView
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textViewDeviceName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="deviceName"
                 android:textSize="25dp"/>
-            <TextView
+
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description:"/>
-            <TextView
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textViewDeviceDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Device description provided by the User"/>
         </LinearLayout>
-        <ImageView
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewDevicePicture"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -63,21 +74,25 @@
             android:layout_weight="1"
             android:layout_gravity="end"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginVertical="10dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:text="BaseUrl: "/>
+
             <TextView
                 android:id="@+id/textViewDeviceBaseUrl"
                 android:layout_width="wrap_content"
@@ -85,11 +100,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"/>
         </LinearLayout>
-        <TextView
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewDeviceStatus"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="deviceStatus"
+            android:text="Status"
             android:background="@drawable/green_border"
             android:textColor="@color/white"
             android:paddingVertical="2dp"
@@ -98,45 +114,55 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="15dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:text="Commands"
             android:textSize="16dp"/>
-        <ImageButton
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/buttonAddDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_insert_photo_24"/>
+            android:src="@drawable/baseline_insert_photo_24"></com.google.android.material.imageview.ShapeableImageView>
+
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCommands"
         android:layout_width="match_parent"
         android:layout_height="300dp"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/buttonEditDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Modify"
+            android:backgroundTint="#1B89DA"
             android:layout_weight="1"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="15dp"/>
+
         <Button
             android:id="@+id/buttonDeleteDevice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Delete"
+            android:backgroundTint="#1B89DA"
             android:layout_weight="1"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="15dp"/>
     </LinearLayout>
 
 </LinearLayout>
